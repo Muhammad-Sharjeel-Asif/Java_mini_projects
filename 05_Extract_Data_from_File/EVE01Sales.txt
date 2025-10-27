@@ -2,7 +2,7 @@ Date	Region	Rep ID	Product	Qty	Unit Price
 17-Jun-2019	North	E011	Product D	22	5
 23-Jun-2019	North	E011	Product D	24	5
 26-Jun-2019	North	E011	Product C	9	8
-29-June-2019	North	E011	Product C	6	8
+29-Jun-2019	North	E011	Product C	6	8
 2-Jul-2019	North	E011	Product D	7	5
 4-Jul-2019	North	E011	Product D	15	5
 8-Jul-2019	North	E011	Product B	19	15
