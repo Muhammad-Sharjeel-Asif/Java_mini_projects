@@ -1,0 +1,27 @@
+import java.io.*;
+import java.net.*;
+
+// keep it in the same file, not public
+class ClientHandler extends Thread {
+    private Socket clientSocket;
+
+    public ClientHandler(Socket socket) {
+        this.clientSocket = socket;
+    }
+
+    public void run() {
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            String message = in.readLine();
+            System.out.println("Received from client: " + message);
+
+            out.println("Hello Client, I received your message: " + message);
+
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
