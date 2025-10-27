@@ -59,12 +59,13 @@ public class Extract_Data {
                 int prevMonthSales = MonthSales.getOrDefault(month, 0);
                 MonthSales.put(month, prevMonthSales + rowPrice);
             }
+            reader.close();
 
             System.out.println("\n");
 
             Scanner user = new Scanner(System.in);
             System.out.print("Select to see Sales Data: ");
-            int userIn = Integer.parseInt(user.nextLine());
+            int userIn = user.nextInt();
             System.out.println("\n");
 
             if (userIn == 1) {
