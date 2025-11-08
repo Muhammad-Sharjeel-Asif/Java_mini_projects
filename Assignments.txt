@@ -1,0 +1,15 @@
+Assignments
+
+1. EBook Info (creating a BookInfo parent class, EBookInfo child class and an implementer class in which we use the EBookInfo class to create its object and display the book as text in terminal and as PDF)
+2. TCP Client and Server 1.0 (simple server and client communication)
+3. Client Server 2.0 (Continue chat of client server until client or server enters bye)
+4. Client Server 1.5 (Server gives file names from current directory from dir cmd also get filename from client and give file content to client in terminal)
+5. TCP Client Server multi threaded chat server 
+6. Recursion (uploaded on GCR)
+7. Searching sorting algorithms 
+8. Equation solving (Algorithm for solving any equation using bisection method)
+9. Linked list (program to add new item, create a new linked list, and print the data in sorted order)
+10. Binary search tree (print leaf nodes, search an item, print child and parent nodes of an item, print nodes according to in-order traversal, save BST in a file)
+11. Hamming algorithm
+12. Structured file analyzer (total, employee wise, product wise, region wise, date wise, challenge question)
+13. Calendar creation from date
