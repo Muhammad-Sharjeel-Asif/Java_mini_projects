@@ -1,17 +1,12 @@
 package serverclientpackage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class TCPClient {
     Socket clientSocket;
-    String ipAddress = "127.0.0.1";
-    int portNumber = 9090;
-    String message = "Hi! from Client";
+    String ipAddress;
+    int portNumber;
     PrintWriter out;
     BufferedReader in;
 
@@ -20,25 +15,22 @@ public class TCPClient {
         this.portNumber = port_number;
         clientSocket = new Socket(this.ipAddress, this.portNumber);
         System.out.println("Connected with Server!");
+        
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
 
-    public String send() throws IOException {
-        System.out.print("Enter message to send to Server: ");
-        Scanner input = new Scanner(System.in);
-        String sendMessage = input.next();
-        this.message = sendMessage;
-
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        out.println(sendMessage);
-        return this.message;
+    public void send(String message) throws IOException {
+        out.println(message);
     }
 
     public String receive() throws IOException {
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         return in.readLine();
     }
 
     public void close() throws IOException {
+        in.close();
+        out.close();
         clientSocket.close();
     }
 }

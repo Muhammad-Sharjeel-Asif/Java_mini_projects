@@ -1,28 +1,40 @@
+import java.io.*;
+import java.util.Scanner;
 import serverclientpackage.TCPClient;
-import java.io.IOException;;
 
 public class Client {
-
     public static void main(String[] args) throws IOException {
-
         TCPClient client = new TCPClient("127.0.0.1", 9999);
+        Scanner scanner = new Scanner(System.in);
+        
+        try {
+            while (true) {
 
-        while (true) {
+                System.out.println("Available files:");
+                String line;
+                while (!(line = client.receive()).equals("END_OF_LIST")) {
+                    System.out.println(line);
+                }
+                
 
-            String sendMessage = client.send();
-            System.out.println("Server: " + sendMessage);
+                System.out.print("\nEnter filename (or 'quit'): ");
+                String fileName = scanner.nextLine();
+                client.send(fileName);
+                
+                if (fileName.equalsIgnoreCase("quit")) {
+                    break;
+                }
+                
 
-            if (sendMessage.equalsIgnoreCase("quit")) {
-                break;
+                System.out.println("\n--- File Content ---");
+                while (!(line = client.receive()).equals("END_OF_FILE")) {
+                    System.out.println(line);
+                }
+                System.out.println("-----------------------------\n");
             }
-
-            String receivedMessage = client.receive();
-
-            if (sendMessage.equalsIgnoreCase("quit") || receivedMessage.equalsIgnoreCase("quit")) {
-                break;
-            }
+        } finally {
+            client.close();
+            scanner.close();
         }
-
-        client.close();
     }
 }

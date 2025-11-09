@@ -1,23 +1,45 @@
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 import serverclientpackage.TCPServer;
-import java.io.IOException;;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-
         TCPServer server = new TCPServer(9999);
+        
+        try {
+            while (true) {
+                Process process = Runtime.getRuntime().exec("cmd /c dir /b");
+                BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream())
+                );
+            
+                
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    server.send(line);
+                }
+                server.send("END_OF_LIST");
+                
 
-        while (true) {
+                String fileName = server.receive();
+                System.out.println("Client requested: " + fileName);
+                
+                if (fileName.equalsIgnoreCase("quit")) {
+                    break;
+                }
+                
 
-            String recievedMessage = server.receive();
-            System.out.println("Client: " + recievedMessage);
-
-            String sendMessage = server.send();
-
-            if (recievedMessage.equalsIgnoreCase("quit") || sendMessage.equalsIgnoreCase("quit")) {
-                break;
+                List<String> lines = Files.readAllLines(Paths.get(fileName));
+                for (String fileLine : lines) {
+                    server.send(fileLine);
+                }
+                server.send("END_OF_FILE");
             }
-
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            server.close();
         }
-        server.close();
     }
 }
